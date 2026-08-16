@@ -21,6 +21,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     curl \
     ffmpeg \
+    pkg-config \
+    libavformat-dev \
+    libavcodec-dev \
+    libavdevice-dev \
+    libavutil-dev \
+    libswscale-dev \
+    libswresample-dev \
+    libavfilter-dev \
     libsm6 \
     libxext6 \
     libgl1 \
