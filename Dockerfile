@@ -2,7 +2,7 @@
 # MuseTalk Live Avatar GPU Production Image
 # Base: Ubuntu 22.04 with CUDA 11.8 & cuDNN 8
 # ==========================================
-FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
@@ -42,12 +42,9 @@ RUN pip install --no-cache-dir \
     torchaudio==2.0.2 \
     --index-url https://download.pytorch.org/whl/cu118
 
-# Install OpenMMLab packages
-RUN pip install --no-cache-dir -U openmim && \
-    mim install mmengine && \
-    mim install "mmcv==2.0.1" && \
-    mim install "mmdet==3.1.0" && \
-    mim install "mmpose==1.1.0"
+# Install OpenMMLab packages with official prebuilt wheels
+RUN pip install --no-cache-dir mmengine "mmdet==3.1.0" "mmpose==1.1.0" && \
+    pip install --no-cache-dir "mmcv==2.0.1" -f https://download.openmmlab.com/mmcv/dist/cu118/torch2.0/index.html
 
 # Copy and install Python requirements
 COPY requirements.txt .
