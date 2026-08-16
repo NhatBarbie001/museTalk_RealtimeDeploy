@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  musetalk-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: musetalk-realtime
+    restart: unless-stopped
+    shm_size: '8gb'
+    ports:
+      - "8000:8000"
+      - "10000-20000:10000-20000/udp"
+    environment:
+      - USE_FLOAT16=true
+      - CUDA_VISIBLE_DEVICES=0
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./models:/workspace/models
+      - ./results:/workspace/results
+      - ./data:/workspace/data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MuseTalk Live Realtime Avatar</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="header">
+    <div class="logo-group">
+      <span class="logo-badge">MUSE-TALK v1.5</span>
+      <h1 class="title">Live Avatar AI Console</h1>
+    </div>
+    <div class="status-pills">
+      <div id="connPill" class="pill disconnected">
+        <span class="dot"></span>
+        <span id="connText">Chưa kết nối</span>
+      </div>
+      <div id="vramPill" class="pill">
+        <span>GPU VRAM: <strong id="vramText">-- / -- MB</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-container">
+    
+    <!-- Video Player Stage -->
+    <section class="video-stage-card">
+      <div class="video-wrapper">
+        <div class="video-overlay-badge">
+          <span class="dot" style="background: var(--accent-cyan)"></span>
+          <span id="streamState">Trạng thái: Sẵn sàng</span>
+        </div>
+        <video id="avatarVideo" autoplay playsinline></video>
+      </div>
+
+      <!-- Telemetry Dashboard -->
+      <div class="telemetry-bar">
+        <div class="telemetry-item">
+          <div class="telemetry-label">FPS Render</div>
+          <div id="fpsVal" class="telemetry-val">25.0</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label">Độ trễ A/V</div>
+          <div id="latencyVal" class="telemetry-val">-- ms</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label">Trạng thái Bot</div>
+          <div id="botStateVal" class="telemetry-val" style="color: var(--accent-emerald)">IDLE</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="telemetry-label">Audio Chunk</div>
+          <div id="audioQueueVal" class="telemetry-val">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Control & Interaction Panel -->
+    <aside class="control-card">
+      <div class="section-title">⚙️ Cấu hình Phiên WebRTC</div>
+      
+      <div class="input-group">
+        <label for="avatarSelect">Chọn Nhân Vật Avatar:</label>
+        <select id="avatarSelect">
+          <option value="">Đang tải danh sách avatar...</option>
+        </select>
+      </div>
+
+      <div class="btn-row">
+        <button id="btnConnect" class="btn-primary">▶ Bắt Đầu Kết Nối WebRTC</button>
+        <button id="btnDisconnect" class="btn-secondary" style="display: none;">⏹ Ngắt Kết Nối</button>
+        <button id="btnInterrupt" class="btn-danger" title="Barge-in: Cắt lời bot ngay lập tức">⚡ Ngắt Lời (Barge-in)</button>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0.5rem 0;">
+
+      <div class="section-title">💬 Tương tác Giọng nói (Test Chatbot)</div>
+
+      <!-- Option A: Send Text via Simulated TTS -->
+      <div class="input-group">
+        <label for="ttsTextInput">Nhập câu nói (gửi TTS):</label>
+        <textarea id="ttsTextInput" placeholder="Ví dụ: Xin chào bạn, tôi là trợ lý ảo AI được vận hành bởi MuseTalk thời gian thực."></textarea>
+      </div>
+      <button id="btnSendText" class="btn-secondary">🔊 Tổng Hợp & Đẩy Audio Vào Avatar</button>
+
+      <!-- Option B: Upload Audio File -->
+      <div class="input-group" style="margin-top: 0.5rem;">
+        <label for="audioFileInput">Hoặc gửi file âm thanh (.wav / .mp3):</label>
+        <input type="file" id="audioFileInput" accept="audio/*" style="display: none;">
+        <button id="btnUploadAudio" class="btn-secondary">📁 Chọn File Audio & Gửi</button>
+      </div>
+
+      <!-- Option C: Record Microphone -->
+      <div class="btn-row" style="margin-top: 0.5rem;">
+        <button id="btnRecordMic" class="btn-secondary btn-record" style="flex: 1;">🎙️ Thu Âm Từ Micro</button>
+      </div>
+    </aside>
+
+  </main>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
