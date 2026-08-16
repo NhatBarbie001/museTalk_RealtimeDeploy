@@ -32,8 +32,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN ln -sf /usr/bin/python3.10 /usr/bin/python && \
     ln -sf /usr/bin/pip3 /usr/bin/pip
 
-# Upgrade pip
-RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+# Upgrade pip & pin numpy 1.23.5
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir "numpy==1.23.5"
 
 # Install PyTorch 2.0.1 with CUDA 11.8
 RUN pip install --no-cache-dir \
@@ -41,6 +42,9 @@ RUN pip install --no-cache-dir \
     torchvision==0.15.2 \
     torchaudio==2.0.2 \
     --index-url https://download.pytorch.org/whl/cu118
+
+# Install chumpy with --no-build-isolation (fixes setup.py 'import pip' issue)
+RUN pip install --no-cache-dir --no-build-isolation chumpy
 
 # Install OpenMMLab packages with official prebuilt wheels
 RUN pip install --no-cache-dir mmengine "mmdet==3.1.0" "mmpose==1.1.0" && \
