@@ -8,7 +8,7 @@ echo "=================================================="
 # Check if model weights exist; if not, download them
 if [ ! -f "models/musetalkV15/unet.pth" ]; then
     echo "📦 Weights not found in ./models. Initiating automatic download..."
-    bash /workspace/download_weights.sh
+    python /workspace/download_weights.py
 else
     echo "✅ Model weights detected in ./models."
 fi

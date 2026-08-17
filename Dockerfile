@@ -69,8 +69,7 @@ RUN pip install --no-cache-dir \
     aiortc==1.8.0 \
     av==11.0.0 \
     python-multipart==0.0.9 \
-    pydantic==2.6.4 \
-    huggingface_hub
+    pydantic==2.6.4
 
 # Copy application source code
 COPY . /workspace
